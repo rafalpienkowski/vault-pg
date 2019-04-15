@@ -23,6 +23,8 @@
           <e p="IVaultStore.cs" t="Include" />
           <e p="JsonParser.cs" t="Include" />
           <e p="VaultAuthTypeNotSupportedException.cs" t="Include" />
+          <e p="VaultConfigurationProvider.cs" t="Include" />
+          <e p="VaultConfigurationSource.cs" t="Include" />
           <e p="VaultException.cs" t="Include" />
           <e p="VaultOptions.cs" t="Include" />
           <e p="VaultStore.cs" t="Include" />
