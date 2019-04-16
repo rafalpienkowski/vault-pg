@@ -14,11 +14,11 @@ namespace VaultClient
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
+        public IConfigurationRoot Configuration { get; }
 
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = (IConfigurationRoot)configuration;
         }
         
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -27,8 +27,9 @@ namespace VaultClient
         {
             services.AddMvcCore()
                 .AddJsonFormatters();
-
+            
             services.AddOptions();
+            services.AddSingleton(Configuration);
             services.Configure<AppSettings>(Configuration);
         }
 

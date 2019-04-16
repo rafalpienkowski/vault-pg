@@ -11,10 +11,12 @@ namespace VaultClient.Controllers
     public class ValueController : ControllerBase
     {
         private readonly IOptionsSnapshot<AppSettings> _appSettings;
+        private readonly IConfigurationRoot _configurationRoot;
 
-        public ValueController(IOptionsSnapshot<AppSettings> appSettings)
+        public ValueController(IOptionsSnapshot<AppSettings> appSettings, IConfigurationRoot configurationRoot)
         {
             _appSettings = appSettings;
+            _configurationRoot = configurationRoot;
         }
         
         [HttpGet]
@@ -25,6 +27,11 @@ namespace VaultClient.Controllers
             {
                 values.Add($"My secret: {_appSettings?.Value.Secret}");
             }
+
+            if (_appSettings?.Value?.SomeInt != null)
+            {
+                values.Add($"Some int: {_appSettings.Value.SomeInt}");
+            }
             return Ok(values);
         }
 
@@ -32,7 +39,8 @@ namespace VaultClient.Controllers
         [Route("refresh")]
         public IActionResult Refresh()
         {
-            return Ok("ok");
+            _configurationRoot.Reload();
+            return Ok("Refreshed");
         }
     }
 }
